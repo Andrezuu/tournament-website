@@ -1,0 +1,51 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore environment variables file (if any)
+.env
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore package-lock.json file
+package-lock.json
+
+# Ignore .DS_Store files on macOS
+.DS_Store
+
+# Ignore .vscode directory (if you use Visual Studio Code)
+.vscode/
+
+# Ignore coverage directory (if you use code coverage tools)
+coverage/
+
+# Ignore .idea directory (if you use IntelliJ IDEA)
+.idea/
+
+# Ignore .npmrc file (npm configuration)
+.npmrc
+
+# Ignore .yarnrc file (Yarn configuration)
+.yarnrc
+
+# Ignore .yarn directory (Yarn package cache)
+.yarn/
+
+# Ignore .pnp.js file (Yarn Plug'n'Play file)
+.pnp.js
+
+# Ignore .eslintcache file (ESLint cache)
+.eslintcache
+
+# Ignore jest-puppeteer.config.js file (Jest Puppeteer configuration)
+jest-puppeteer.config.js
+
+# Ignore Jest snapshots directory
+__snapshots__/
+
+# Ignore Puppeteer browser binaries
+node_modules/puppeteer/.local-chromium/
+
+# Ignore any local development files or directories
+# Add any other files or directories you want to ignore here

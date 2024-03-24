@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourne-x</title>
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+    .small-image {
+    width: 100px; /* Adjust width as needed */
+    height: auto; /* Adjust height as needed or remove it to maintain aspect ratio */
+    }
+    </style>
+    </head>
+</head>
+
+<body class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8 text-blue-500">¡Bienvenid@ a <span class="text-yellow-300">Tourney-x</span>!</h1>
+        <p id="optionsP" class="text-lg mb-8">Selecciona alguna de las siguientes opciones.</p>
+        <button id="TorneosButton" hx-get="/tournaments" hx-swap="outerHTML" hx_trigger="click" hx-target="#optionsP"  class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Ver torneos</button>
+        <button id="CrearTorneoButton" hx-get="/createTournament" hx-swap="body" hx_trigger="click" hx-target="#optionsP"  class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Crear torneo</button>
+        
+    </div>
+</body>
+</html>
