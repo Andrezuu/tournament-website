@@ -11,12 +11,15 @@ const server_config = config;
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.set('query parser',
+  (str) => qs.parse(str, { /* custom optiaaons */ }))
 
 const routerBuilder = new RouterBuilder()
 const router = routerBuilder
     .setTournamentRoutes()
     .setParticipantRoutes()
     .setCreateTournamentRoutes()
+    .setBracketsRoutes()
     .build()
 app.use(router)
 

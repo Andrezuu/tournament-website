@@ -27,7 +27,7 @@ CREATE TABLE `participants` (
   `username` varchar(50) DEFAULT NULL,
   `skill` int DEFAULT NULL,
   PRIMARY KEY (`participant_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `participants` (
 
 LOCK TABLES `participants` WRITE;
 /*!40000 ALTER TABLE `participants` DISABLE KEYS */;
-INSERT INTO `participants` VALUES (1,'Lets',432),(2,'Lets',432),(3,'dslkfj',321),(4,'frewfr',4123),(5,'rfewf',212);
+INSERT INTO `participants` VALUES (1,'Lets',432),(2,'Lets',432),(3,'dslkfj',321),(4,'frewfr',4123),(5,'rfewf',212),(13,'123',123),(15,'aaa',123),(17,'123',123),(19,'adsa',123),(21,'12333',1233),(23,'fewdfds',123),(60,'fdsfas',12222),(61,'ssssss',12212121),(62,'aaaaaaaaaaaaaa',111111),(63,'1111',1111111),(64,'1111',1111111),(65,'seta',111111),(66,'fasaaaaa',11111),(67,'fdsafaaaa',1111),(68,'asdfasdsa',1111),(69,'andresss',1111),(70,'power',1);
 /*!40000 ALTER TABLE `participants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `tournament_participant` (
 
 LOCK TABLES `tournament_participant` WRITE;
 /*!40000 ALTER TABLE `tournament_participant` DISABLE KEYS */;
-INSERT INTO `tournament_participant` VALUES (3,1),(3,2),(3,3),(3,4),(3,5);
+INSERT INTO `tournament_participant` VALUES (3,61),(3,62),(3,65),(3,66),(3,67),(3,68),(3,69),(3,70);
 /*!40000 ALTER TABLE `tournament_participant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-24  0:05:47
+-- Dump completed on 2024-03-25  0:37:17
