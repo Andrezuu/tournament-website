@@ -1,8 +1,8 @@
-import * as database from "../services/index.js";
+import * as database from "../services/index.js"
 import { FreeForAllTournamentStrategy, GroupTournamentStrategy, SwissTournamentStrategy, TournamentContext, TournamentStrategy } from "../utils/strategyTournament/index.js"
 
 function getTournamentTemplate(tournament) {
-    const tourneyFormats = new Map();
+    const tourneyFormats = new Map()
     tourneyFormats.set(1, "Suizo")
     tourneyFormats.set(2, "Por grupos")
     tourneyFormats.set(3, "Todos contra todos")
@@ -51,7 +51,6 @@ async function getSwissBracketTemplate(tournament_code) {
     const tourneyContext = new TournamentContext()
     tourneyContext.setStrategy(new SwissTournamentStrategy())
     const brackets = tourneyContext.createBrackets(players, 3)
-    console.log(brackets)
 
     const bracketHTML = brackets.map(bracket => `
         <div class="round space-y-4">
@@ -61,36 +60,37 @@ async function getSwissBracketTemplate(tournament_code) {
                 <div>${bracket[1].username}</div>
             </div>
         </div>
-    `).join('');
+    `).join('')
 
     return `
         <div class=" p-8 rounded-lg">
         <h1 class="text-4xl font-bold text-center mb-8">Brackets del torneo suizo</h1>
             ${bracketHTML}
         </div>
-    `;
+    `
 }
 
 async function getFreeForAllBracketTemplate(tournament_code) {
-    const players = await database.getTournamentParticipants(3);
-    console.log(players);
+    const players = await database.getTournamentParticipants(3)
+    console.log(players)
     if (!players || players.length === 0) {
-        return '';
+        return ''
     }
 
-    // Group players into rounds of 4
-    const rounds = [];
-    for (let i = 0; i < players.length; i += 4) {
-        rounds.push(players.slice(i, i + 4));
-    }
+    const tourneyContext = new TournamentContext()
+    tourneyContext.setStrategy(new FreeForAllTournamentStrategy())
+    const brackets = tourneyContext.createBrackets(players, 3)
 
     const bracketHTML = `
         <div class="bracket">
-        <h1 class="text-4xl font-bold text-center mb-8">Brackets del torneo FFA</h1>
-            ${rounds.map((round, index) => `
-                <!-- Round ${index + 1} -->
+            <h1 class="text-4xl font-bold text-center mb-8">Brackets del torneo FFA</h1>
+            ${brackets.map((bracket, index) => `
+                <!-- Bracket ${index + 1} -->
+                <h1>Bracket ${index + 1}</h1>
                 <div class="round">
-                    ${round.map(player => `<div class="match bg-blue-600 border-gray-300">${player.username}</div>`).join('')}
+                    ${bracket.map((match) => `
+                        <div class="match bg-blue-600 border-gray-300">${match.username}</div>
+                    `).join('')}
                 </div>
             `).join('')}
             <!-- Ganador -->
@@ -98,28 +98,27 @@ async function getFreeForAllBracketTemplate(tournament_code) {
                 <div class="match bg-blue-600 border-gray-300">Ganador del Torneo FFA</div>
             </div>
         </div>
-    `;
+    `
 
-    return bracketHTML;
+    return bracketHTML
 }
 
+
 async function getGroupBracketTemplate(tournament_code) {
-    const players = await database.getTournamentParticipants(3);
-    console.log(players);
+    const players = await database.getTournamentParticipants(3)
+    console.log(players)
     if (!players || players.length === 0) {
-        return '';
+        return ''
     }
 
-    // Group players into rounds of 4
-    const rounds = [];
-    for (let i = 0; i < players.length; i += 4) {
-        rounds.push(players.slice(i, i + 4));
-    }
+    const tourneyContext = new TournamentContext()
+    tourneyContext.setStrategy(new GroupTournamentStrategy())
+    const brackets = tourneyContext.createBrackets(players, 4)
 
     const bracketHTML = `
         <div class="container mx-auto py-8">
             <h1 class="text-4xl font-bold text-center mb-8">Brackets del Torneo por Grupos</h1>
-            ${rounds.map((round, index) => `
+            ${brackets.map((round, index) => `
                 <!-- Grupo ${String.fromCharCode(65 + index)} -->
                 <div class="group">
                     <h2 class="group-header">Grupo ${String.fromCharCode(65 + index)}</h2>
@@ -144,9 +143,9 @@ async function getGroupBracketTemplate(tournament_code) {
                 </div>
             </div>
         </div>
-    `;
+    `
 
-    return bracketHTML;
+    return bracketHTML
 }
 
 

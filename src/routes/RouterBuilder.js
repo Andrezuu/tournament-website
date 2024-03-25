@@ -2,7 +2,7 @@ import express, { Router } from 'express'
 import tournamentRouter from './tournaments.js'
 import createTournamentRouter from './createTournament.js'
 import participantsRouter from './participants.js'
-import bracketsRouter from './brackets.js';
+import bracketsRouter from './brackets.js'
 
 class RouterBuilder {
     // router

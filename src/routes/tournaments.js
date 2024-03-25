@@ -1,23 +1,12 @@
 import express from 'express'
-import qs from 'qs'
-import bodyParser from 'body-parser'
 import * as database from "../services/index.js"
-import path from 'path'
-import { fileURLToPath } from 'url'
 import * as htmlTemplates from '../utils/htmlTemplates.js'
-import { copyFileSync } from 'fs'
+
 const tournamentRouter = express.Router()
-const rootDirectory = path.dirname(fileURLToPath(import.meta.url))
-const tourneyFormats = new Map();
-tournamentRouter.use(bodyParser.urlencoded({ extended: false }));
-tourneyFormats.set(1, "Suizo")
-tourneyFormats.set(2, "Por grupos")
-tourneyFormats.set(3, "Todos contra todos")
+
 
 tournamentRouter.get('/', async (req, res) => {
     const tournaments = await database.getAllTournaments()
-
-    const filePath = path.join(rootDirectory, '../public/suizo.html');
 
     res.send(`
         <h1 class="text-4xl font-bold text-center mb-4">Torneos</h1>
@@ -28,7 +17,6 @@ tournamentRouter.get('/', async (req, res) => {
 })
 
 tournamentRouter.get('/details/:id', async (req, res) => {
-    const filePath = path.join(rootDirectory, '../../public/tournamentDetails.html');
     const tournamentId = req.params.id
     const participantsId = await database.getTournamentParticipants(tournamentId)
     const promises = participantsId.map(async tourParticipant => {

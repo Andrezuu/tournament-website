@@ -1,10 +1,9 @@
 import express from 'express'
 import * as database from "../services/index.js"
 import * as utils from "../utils/htmlTemplates.js"
-import path from 'path'
-import { fileURLToPath, pathToFileURL } from 'url'
+
 const participantRouter = express.Router()
-const rootDirectory = path.dirname(fileURLToPath(import.meta.url))
+
 
 
 participantRouter.get('/', async (req, res) => {
@@ -12,7 +11,6 @@ participantRouter.get('/', async (req, res) => {
 
     console.log(tournamentId)
     const participants = await database.getAllParticipants()
-    // const filePath = path.join(rootDirectory, '../../public/images/default.jpg');aa
     const filePath = "/images/default.jpg"
     res.send(`
     <div id="participants3">
@@ -36,14 +34,14 @@ participantRouter.get('/', async (req, res) => {
 })
 
 participantRouter.get('/name', async (req, res) => {
-    const participants = await database.getAllParticipants();
+    const participants = await database.getAllParticipants()
 
     // Generate options for the select element
-    const options = participants[0].map(participant => utils.getParticipantNames(participant)).join('');
+    const options = participants[0].map(participant => utils.getParticipantNames(participant)).join('')
     const html = `    
     <h1 class="font-bold text-4xl text-center mb-4 text-white">Participantes</h1>
         ${options}
-    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Submit</button>`
+    `
 
     // Send the response with the select element
     res.send(html)

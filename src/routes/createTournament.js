@@ -1,6 +1,6 @@
 import express from 'express'
 import * as database from "../services/index.js"
-import { getParticipantNames } from '../utils/htmlTemplates.js'
+
 const createTournamentRouter = express.Router()
 
 createTournamentRouter.get('/', (req, res) => {
@@ -8,10 +8,9 @@ createTournamentRouter.get('/', (req, res) => {
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-4xl font-bold text-center mb-8 text-blue-500">Crea tu torneo</span></h1>
 
-        <!-- Add Participant Form -->
+        
         <div id="addParticipantForm">
-            <h2 class="text-2xl font-bold mb-4">Agregar Participante</h2>
-            
+            <h2 class="text-2xl font-bold mb-4">Agregar Participante</h2>    
                 <div class="mb-4">
                     <label class="block text-sm font-bold mb-2" for="participantName">Nombre del Participante:</label>
                     <input id="participantName"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="participantName" type="text" placeholder="Nombre">
@@ -23,7 +22,6 @@ createTournamentRouter.get('/', (req, res) => {
                 </ul>
         </div>
 
-        <!-- Tournament Creation Form -->
         <div id="createTournamentForm">
             <h2 class="text-2xl font-bold mb-4">Crear Torneo</h2>
             <form hx-get="/brackets" hx-swap="outerHTML" hx-target="body">
@@ -35,15 +33,17 @@ createTournamentRouter.get('/', (req, res) => {
                     <label class="block text-sm font-bold mb-2" for="tournamentDescription">Descripción:</label>
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tournamentDescription" placeholder="Descripción"></textarea>
                 </div>
+                <div hx-vals='js:{selectedValue: document.getElementById("tournamentFormat").value}'>
                 <div class="mb-4">
                     <label class="block text-sm font-bold mb-2" for="tournamentFormat">Formato:</label>
                     <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tournamentFormat">
-                        <option value="suizo">Suizo</option>
-                        <option value="todos-contra-todos">Todos contra Todos</option>
-                        <option value="por-grupos">Por Grupos</option>
+                        <option value="1">Suizo</option>
+                        <option value="2">Todos contra Todos</option>
+                        <option value="3">Por Grupos</option>
                     </select>
                 </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Crear Torneo</button>
+                <button hx-post="/brackets" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Crear Torneo</button>
+                </div>
             </form>
         </div>
 
@@ -66,7 +66,7 @@ createTournamentRouter.post('/addParticipant', async (req, res) => {
         newSkill = req.body.skill
         const newParticipantId = await database.createParticipant(newName, newSkill)
         const newParticipant = await database.getParticipant(newParticipantId)
-        res.send(`Agregado participante ${newParticipant[0].username}`)
+        res.send(`Nuevo participante ${newParticipant[0].username}`)
 
     }
 })
@@ -77,7 +77,7 @@ createTournamentRouter.post('/selectedParticipants', async (req, res) => {
     console.log(addedId)
     const addedParticipant = await database.getParticipant(parseInt(addedId))
     await database.createTournamentParticipant(3, parseInt(addedId))
-    res.send(`<p>${addedParticipant[0].username} agregado</p>!`)
+    res.send(`<p>${addedParticipant[0].username} agregado</p>`)
 })
 
 export default createTournamentRouter
