@@ -5,6 +5,7 @@ class TournamentContext {
     }
 
     createBrackets(participants) {
-        this.strategy.createBrackets(participants_codes);
+        return this.strategy.createBrackets(participants);
     }
 }
+export { TournamentContext }

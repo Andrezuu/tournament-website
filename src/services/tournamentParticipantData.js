@@ -2,9 +2,10 @@ import { database } from "../config/index.js"
 
 async function getTournamentParticipants(tournament_code) {
     const [rows] = await database.query(`
-        select participant_code 
-        from tournament_participant
-        where tournament_code = ?
+        select tp.participant_code, p.username
+        from tournament_participant tp
+        join participants p on tp.participant_code = p.participant_code
+        where tp.tournament_code = ?
     `, tournament_code)
     return rows
 }

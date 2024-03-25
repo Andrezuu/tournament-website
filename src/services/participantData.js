@@ -1,7 +1,7 @@
 import { database } from "../config/index.js"
 
 async function getAllParticipants() {
-    const [rows] = await database.query(`
+    const rows = await database.query(`
         select * from participants
     `)
     return rows
